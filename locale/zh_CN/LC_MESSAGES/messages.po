@@ -1,0 +1,258 @@
+# mini-swe-agent Chinese Translation
+# Copyright (C) 2025 mini-swe-agent
+# This file is distributed under the same license as the mini-swe-agent package.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: mini-swe-agent 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-27 10:00+0000\n"
+"PO-Revision-Date: 2025-10-27 10:00+0000\n"
+"Last-Translator: AI Assistant <ai@example.com>\n"
+"Language-Team: Chinese (Simplified) <zh_CN@example.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/minisweagent/run/mini.py:36
+msgid "Run mini-SWE-agent in your local environment."
+msgstr "在本地环境中运行 mini-SWE-agent。"
+
+#: src/minisweagent/run/mini.py:39
+msgid "There are two different user interfaces:"
+msgstr "有两种不同的用户界面："
+
+#: src/minisweagent/run/mini.py:41
+msgid "mini Simple REPL-style interface"
+msgstr "mini 简单的 REPL 风格界面"
+
+#: src/minisweagent/run/mini.py:42
+msgid "mini -v Pager-style interface (Textual)"
+msgstr "mini -v 分页风格界面 (Textual)"
+
+#: src/minisweagent/run/mini.py:43
+msgid "More information about the usage: https://mini-swe-agent.com/latest/usage/mini/"
+msgstr "更多使用信息：https://mini-swe-agent.com/latest/usage/mini/"
+
+#: src/minisweagent/run/mini.py:58
+msgid "Loading agent config from '{config_path}'"
+msgstr "正在从 '{config_path}' 加载代理配置"
+
+#: src/minisweagent/run/mini.py:64
+msgid "What do you want to do?"
+msgstr "您想要做什么？"
+
+#: src/minisweagent/run/mini.py:65
+msgid "Got that, thanks!"
+msgstr "收到，谢谢！"
+
+#: src/minisweagent/run/mini.py:73
+msgid "Submit task: Esc+Enter | Navigate history: Arrow Up/Down | Search history: Ctrl+R"
+msgstr "提交任务：Esc+Enter | 浏览历史：上/下箭头 | 搜索历史：Ctrl+R"
+
+#: src/minisweagent/run/mini.py:110
+msgid "Error running agent: {error}"
+msgstr "运行代理时出错：{error}"
+
+#: src/minisweagent/agents/interactive.py:7
+msgid "A small generalization of the default agent that puts the user in the loop."
+msgstr "默认代理的一个小扩展，将用户置于循环中。"
+
+#: src/minisweagent/agents/interactive.py:9
+msgid "There are three modes:"
+msgstr "有三种模式："
+
+#: src/minisweagent/agents/interactive.py:10
+msgid "human: commands issued by the user are executed immediately"
+msgstr "human：用户发出的命令立即执行"
+
+#: src/minisweagent/agents/interactive.py:11
+msgid "confirm: commands issued by the LM but not whitelisted are confirmed by the user"
+msgstr "confirm：LM 发出但未在白名单中的命令需要用户确认"
+
+#: src/minisweagent/agents/interactive.py:12
+msgid "yolo: commands issued by the LM are executed immediately without confirmation"
+msgstr "yolo：LM 发出的命令立即执行，无需确认"
+
+#: src/minisweagent/agents/interactive.py:21
+msgid "Whether to confirm actions."
+msgstr "是否确认操作。"
+
+#: src/minisweagent/agents/interactive.py:23
+msgid "Never confirm actions that match these regular expressions."
+msgstr "永远不要确认与这些正则表达式匹配的操作。"
+
+#: src/minisweagent/agents/interactive.py:25
+msgid "If the agent wants to finish, do we ask for confirmation from user?"
+msgstr "如果代理想要结束，我们是否询问用户确认？"
+
+#: src/minisweagent/agents/interactive.py:56
+msgid "mini-swe-agent (step {step}, ${cost:.2f}):"
+msgstr "mini-swe-agent (步骤 {step}, ${cost:.2f}):"
+
+#: src/minisweagent/agents/interactive.py:60
+msgid "{role}:"
+msgstr "{role}:"
+
+#: src/minisweagent/agents/interactive.py:69
+msgid "Waiting for the LM to respond..."
+msgstr "正在等待 LM 响应..."
+
+#: src/minisweagent/agents/interactive.py:73
+msgid "Limits exceeded. Limits: {step_limit} steps, ${cost_limit}.\nCurrent spend: {current_steps} steps, ${current_cost:.2f}."
+msgstr "超出限制。限制：{step_limit} 步，${cost_limit}。\n当前花费：{current_steps} 步，${current_cost:.2f}。"
+
+#: src/minisweagent/agents/interactive.py:75
+msgid "New step limit:"
+msgstr "新的步数限制："
+
+#: src/minisweagent/agents/interactive.py:76
+msgid "New cost limit:"
+msgstr "新的成本限制："
+
+#: src/minisweagent/agents/interactive.py:84
+msgid "Interrupted. Type a comment/command (/h for available commands)"
+msgstr "已中断。输入评论/命令 (/h 查看可用命令)"
+
+#: src/minisweagent/agents/interactive.py:86
+msgid "Temporary interruption caught."
+msgstr "捕获到临时中断。"
+
+#: src/minisweagent/agents/interactive.py:88
+msgid "Interrupted by user: {message}"
+msgstr "被用户中断：{message}"
+
+#: src/minisweagent/agents/interactive.py:105
+msgid "[bold yellow]Execute?[/bold yellow] [green][bold]Enter[/bold] to confirm[/green], or [green]Type a comment/command[/green] (/h for available commands)\n[bold yellow]>[/bold yellow] "
+msgstr "[bold yellow]执行？[/bold yellow] [green][bold]按回车确认[/bold][/green]，或 [green]输入评论/命令[/green] (/h 查看可用命令)\n[bold yellow]>[/bold yellow] "
+
+#: src/minisweagent/run/extra/config.py:4
+msgid "Utility to manage the global config file."
+msgstr "用于管理全局配置文件的实用工具。"
+
+#: src/minisweagent/run/extra/config.py:6
+msgid "You can also directly edit the `.env` file in the config directory."
+msgstr "您也可以直接编辑配置目录中的 `.env` 文件。"
+
+#: src/minisweagent/run/extra/config.py:8
+msgid "It is located at {global_config_file}."
+msgstr "它位于 {global_config_file}。"
+
+#: src/minisweagent/run/extra/config.py:26
+msgid "To get started, we need to set up your global config file."
+msgstr "要开始使用，我们需要设置您的全局配置文件。"
+
+#: src/minisweagent/run/extra/config.py:28
+msgid "You can edit it manually or use the mini-extra config set or mini-extra config edit commands."
+msgstr "您可以手动编辑它，或使用 mini-extra config set 或 mini-extra config edit 命令。"
+
+#: src/minisweagent/run/extra/config.py:30
+msgid "This setup will ask you for your model and an API key."
+msgstr "此设置将询问您的模型和 API 密钥。"
+
+#: src/minisweagent/run/extra/config.py:32
+msgid "Here's a few popular models and the required API keys:"
+msgstr "以下是一些流行的模型和所需的 API 密钥："
+
+#: src/minisweagent/run/extra/config.py:36
+msgid "Note: Please always include the provider in the model name."
+msgstr "注意：请始终在模型名称中包含提供商。"
+
+#: src/minisweagent/run/extra/config.py:38
+msgid "You can leave any setting blank to skip it."
+msgstr "您可以将任何设置留空以跳过它。"
+
+#: src/minisweagent/run/extra/config.py:40
+msgid "More information at https://mini-swe-agent.com/latest/quickstart/"
+msgstr "更多信息请访问 https://mini-swe-agent.com/latest/quickstart/"
+
+#: src/minisweagent/run/extra/config.py:41
+msgid "To find the best model, check the leaderboard at https://swebench.com/"
+msgstr "要找到最佳模型，请查看排行榜 https://swebench.com/"
+
+#: src/minisweagent/run/extra/config.py:115
+msgid "Enter the key to set:"
+msgstr "输入要设置的键："
+
+#: src/minisweagent/run/extra/config.py:138
+msgid "Enter the value for {key}:"
+msgstr "输入 {key} 的值："
+
+#: src/minisweagent/run/extra/config.py:172
+msgid "Enter the key to unset:"
+msgstr "输入要取消设置的键："
+
+#: src/minisweagent/agents/default.py:5
+msgid "Basic agent class. See https://mini-swe-agent.com/latest/advanced/control_flow/ for visual explanation."
+msgstr "基本代理类。请参阅 https://mini-swe-agent.com/latest/advanced/control_flow/ 获取可视化说明。"
+
+#: src/minisweagent/agents/default.py:15
+msgid "You are a helpful assistant that can do anything."
+msgstr "您是一个可以完成任何任务的乐于助人的助手。"
+
+#: src/minisweagent/agents/default.py:16
+msgid "Your task: {task}. Please reply with a single shell command in triple backticks. To finish, the first line of the output of the shell command must be 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT'."
+msgstr "您的任务：{task}。请用三重反引号回复一个 shell 命令。要完成任务，shell 命令输出的第一行必须是 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT'。"
+
+#: src/minisweagent/agents/default.py:20
+msgid "The last command <command>{action}</command> timed out and has been killed.\nThe output of the command was:\n <output>\n{output}\n</output>\nPlease try another command and make sure to avoid those requiring interactive input."
+msgstr "最后一个命令 <command>{action}</command> 已超时并被终止。\n命令的输出是：\n <output>\n{output}\n</output>\n请尝试另一个命令，并确保避免需要交互式输入的命令。"
+
+#: src/minisweagent/agents/default.py:26
+msgid "Please always provide EXACTLY ONE action in triple backticks."
+msgstr "请始终在三重反引号中提供恰好一个操作。"
+
+#: src/minisweagent/agents/default.py:28
+msgid "Observation: {output}"
+msgstr "观察：{output}"
+
+#: src/minisweagent/agents/default.py:31
+msgid "Raised for conditions that can be handled by the agent."
+msgstr "为可以由代理处理的条件引发。"
+
+#: src/minisweagent/agents/default.py:34
+msgid "Raised when the LM's output is not in the expected format."
+msgstr "当 LM 的输出不符合预期格式时引发。"
+
+#: src/minisweagent/agents/default.py:37
+msgid "Raised when the action execution timed out."
+msgstr "当操作执行超时时引发。"
+
+#: src/minisweagent/agents/default.py:40
+msgid "Raised for conditions that terminate the agent."
+msgstr "为终止代理的条件引发。"
+
+#: src/minisweagent/agents/default.py:43
+msgid "Raised when the LM declares that the agent has finished its task."
+msgstr "当 LM 声明代理已完成其任务时引发。"
+
+# Common error messages
+msgid "Error"
+msgstr "错误"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "Info"
+msgstr "信息"
+
+msgid "Success"
+msgstr "成功"
+
+msgid "Failed"
+msgstr "失败"
+
+msgid "Submitted"
+msgstr "已提交"
+
+#: src/minisweagent/agents/interactive.py:156
+#: src/minisweagent/agents/interactive_textual.py:95
+msgid "Agent wants to finish."
+msgstr "代理想要结束。"
+
+#: src/minisweagent/agents/interactive.py:157
+#: src/minisweagent/agents/interactive_textual.py:96
+msgid "Type a comment to give it a new task or press enter to quit."
+msgstr "输入评论以分配新任务，或按回车退出。"

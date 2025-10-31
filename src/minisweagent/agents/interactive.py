@@ -17,6 +17,7 @@ from rich.rule import Rule
 
 from minisweagent import global_config_dir
 from minisweagent.agents.default import AgentConfig, DefaultAgent, LimitsExceeded, NonTerminatingException, Submitted
+from minisweagent.utils.i18n import _
 
 console = Console(highlight=False)
 prompt_session = PromptSession(history=FileHistory(global_config_dir / "interactive_history.txt"))
@@ -100,7 +101,7 @@ class InteractiveAgent(DefaultAgent):
         return self.config.mode == "confirm" and not any(re.match(r, action) for r in self.config.whitelist_actions)
 
     def ask_confirmation(self) -> None:
-        prompt = (
+        prompt = _(
             "[bold yellow]Execute?[/bold yellow] [green][bold]Enter[/bold] to confirm[/green], "
             "or [green]Type a comment/command[/green] (/h for available commands)\n"
             "[bold yellow]>[/bold yellow] "
@@ -143,8 +144,8 @@ class InteractiveAgent(DefaultAgent):
         except Submitted as e:
             if self.config.confirm_exit:
                 console.print(
-                    "[bold green]Agent wants to finish.[/bold green] "
-                    "[green]Type a comment to give it a new task or press enter to quit.\n"
+                    "[bold green]" + _("Agent wants to finish.") + "[/bold green] "
+                    "[green]" + _("Type a comment to give it a new task or press enter to quit.") + "\n"
                     "[bold yellow]>[/bold yellow] ",
                     end="",
                 )

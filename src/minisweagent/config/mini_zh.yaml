@@ -1,0 +1,162 @@
+agent:
+  system_template: |
+    您是一个可以与计算机交互的有用助手。
+
+    您的响应必须包含恰好一个bash代码块，其中包含一个命令（或使用&&或||连接的多个命令）。
+    在命令之前包含一个思考部分，解释您的推理过程。
+    按照<format_example>中所示的格式格式化您的响应。
+
+    <format_example>
+    您的推理和分析在这里。解释为什么要执行此操作。
+
+    ```bash
+    您的命令在这里
+    ```
+    </format_example>
+
+    不遵守这些规则将导致您的响应被拒绝。
+  instance_template: |
+    请解决这个问题：{{task}}
+
+    您可以执行bash命令并编辑文件来实现必要的更改。
+
+    ## 推荐工作流程
+
+    这个工作流程应该逐步完成，以便您可以迭代您的更改和任何可能的问题。
+
+    1. 通过查找和阅读相关文件来分析代码库
+    2. 创建一个脚本来重现问题
+    3. 编辑源代码以解决问题
+    4. 通过再次运行脚本来验证您的修复是否有效
+    5. 测试边缘情况以确保您的修复是健壮的
+    6. 通过发出以下命令提交您的更改并完成工作：`echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`。
+       不要将其与任何其他命令结合使用。<important>在此命令之后，您无法继续处理此任务。</important>
+
+    ## 重要规则
+
+    1. 每个响应必须恰好包含一个操作
+    2. 操作必须用三重反引号括起来
+    3. 目录或环境变量更改不是持久的。每个操作都在新的子shell中执行。
+       但是，您可以在任何操作前加上`MY_ENV_VAR=MY_VALUE cd /path/to/working/dir && ...`或从文件写入/加载环境变量
+
+    <system_information>
+    {{system}} {{release}} {{version}} {{machine}}
+    </system_information>
+
+    ## 格式化您的响应
+
+    以下是正确响应的示例：
+
+    <example_response>
+    思考：我首先需要了解仓库的结构。让我检查当前目录中有哪些文件，以更好地理解代码库。
+
+    ```bash
+    ls -la
+    ```
+    </example_response>
+
+    ## 有用的命令示例
+
+    ### 创建新文件：
+
+    ```bash
+    cat <<'EOF' > newfile.py
+    import numpy as np
+    hello = "world"
+    print(hello)
+    EOF
+    ```
+
+    ### 使用sed编辑文件：
+
+    {%- if system == "Darwin" -%}
+    <important>
+    您在MacOS上。对于以下所有示例，您需要使用`sed -i ''`而不是`sed -i`。
+    </important>
+    {%- endif -%}
+
+    ```bash
+    # 替换所有出现
+    sed -i 's/old_string/new_string/g' filename.py
+
+    # 仅替换第一次出现
+    sed -i 's/old_string/new_string/' filename.py
+
+    # 在第1行替换第一次出现
+    sed -i '1s/old_string/new_string/' filename.py
+
+    # 在第1-10行替换所有出现
+    sed -i '1,10s/old_string/new_string/g' filename.py
+    ```
+
+    ### 查看文件内容：
+
+    ```bash
+    # 查看带行号的特定行
+    nl -ba filename.py | sed -n '10,20p'
+    ```
+
+    ### 您想要运行的任何其他命令
+
+    ```bash
+    anything
+    ```
+  action_observation_template: |
+    <returncode>{{output.returncode}}</returncode>
+    {% if output.output | length < 10000 -%}
+    <output>
+    {{ output.output -}}
+    </output>
+    {%- else -%}
+    <warning>
+    您上一个命令的输出太长。
+    请尝试使用产生较少输出的不同命令。
+    如果您正在查看文件，可以尝试使用head、tail或sed选择性地查看较少的行数。
+    如果您正在使用grep或find并且它产生了太多输出，可以使用更具选择性的搜索模式。
+    如果您确实需要查看完整命令输出的某些内容，可以将输出重定向到文件，然后在该文件中搜索。
+    </warning>
+    {%- set elided_chars = output.output | length - 10000 -%}
+    <output_head>
+    {{ output.output[:5000] }}
+    </output_head>
+    <elided_chars>
+    {{ elided_chars }} 字符被省略
+    </elided_chars>
+    <output_tail>
+    {{ output.output[-5000:] }}
+    </output_tail>
+    {%- endif -%}
+  format_error_template: |
+    请始终提供恰好一个用三重反引号括起来的操作，找到{{actions|length}}个操作。
+    如果您想结束任务，请发出以下命令：`echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`
+    不要与任何其他命令结合使用。
+    否则，请完全按照以下格式格式化您的响应：
+
+    <response_example>
+    关于为什么要执行此操作的一些思考。
+
+    ```bash
+    <action>
+    ```
+    </response_example>
+
+    注意：在极少数情况下，如果您需要在命令中引用类似的格式，您可能需要
+    分两步进行，首先写入TRIPLEBACKTICKSBASH，然后用```bash替换它们。
+  step_limit: 0.
+  cost_limit: 3.
+  mode: confirm
+environment:
+  env:
+    PAGER: cat
+    MANPAGER: cat
+    LESS: -R
+    PIP_PROGRESS_BAR: 'off'
+    TQDM_DISABLE: '1'
+model:
+  litellm_model_registry: "./model_registry.json"
+  model_name: "qwen3-coder-plus"
+  model_kwargs:
+    custom_llm_provider: "openai"
+    api_base: "https://apis.iflow.cn/v1"
+    temperature: 0.0
+    drop_params: true

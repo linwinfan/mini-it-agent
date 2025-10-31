@@ -25,6 +25,7 @@ from textual.screen import Screen
 from textual.widgets import Footer, Header, Input, Static, TextArea
 
 from minisweagent.agents.default import AgentConfig, DefaultAgent, NonTerminatingException, Submitted
+from minisweagent.utils.i18n import _
 
 
 @dataclass
@@ -91,8 +92,8 @@ class _TextualAgent(DefaultAgent):
         except Submitted as e:
             if self.config.confirm_exit:
                 if new_task := self.app.input_container.request_input(
-                    "[bold green]Agent wants to finish.[/bold green] "
-                    "[green]Type a comment to give it a new task or press enter to quit.\n"
+                    "[bold green]" + _("Agent wants to finish.") + "[/bold green] "
+                    "[green]" + _("Type a comment to give it a new task or press enter to quit.") + "\n"
                 ).strip():
                     raise NonTerminatingException(f"The user added a new task: {new_task}")
             raise e

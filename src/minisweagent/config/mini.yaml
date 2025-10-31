@@ -153,6 +153,10 @@ environment:
     PIP_PROGRESS_BAR: 'off'
     TQDM_DISABLE: '1'
 model:
+  litellm_model_registry: "D:/UGit/mini-it-agent/model_registry.json"
+  model_name: "qwen3-coder-plus"
   model_kwargs:
+    custom_llm_provider: "openai"
+    api_base: "https://apis.iflow.cn/v1"
     temperature: 0.0
     drop_params: true

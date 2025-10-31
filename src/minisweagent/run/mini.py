@@ -24,13 +24,14 @@ from minisweagent.models import get_model
 from minisweagent.run.extra.config import configure_if_first_time
 from minisweagent.run.utils.save import save_traj
 from minisweagent.utils.log import logger
+from minisweagent.utils.i18n import _
 
 DEFAULT_CONFIG = Path(os.getenv("MSWEA_MINI_CONFIG_PATH", builtin_config_dir / "mini.yaml"))
 DEFAULT_OUTPUT = global_config_dir / "last_mini_run.traj.json"
 console = Console(highlight=False)
 app = typer.Typer(rich_markup_mode="rich")
 prompt_session = PromptSession(history=FileHistory(global_config_dir / "mini_task_history.txt"))
-_HELP_TEXT = """Run mini-SWE-agent in your local environment.
+_HELP_TEXT = _("""Run mini-SWE-agent in your local environment.
 
 [not dim]
 There are two different user interfaces:
@@ -40,7 +41,7 @@ There are two different user interfaces:
 
 More information about the usage: [bold green]https://mini-swe-agent.com/latest/usage/mini/[/bold green]
 [/not dim]
-"""
+""")
 
 
 # fmt: off
@@ -59,21 +60,22 @@ def main(
     # fmt: on
     configure_if_first_time()
     config_path = get_config_path(config_spec)
-    console.print(f"Loading agent config from [bold green]'{config_path}'[/bold green]")
-    config = yaml.safe_load(config_path.read_text())
+    console.print(_("Loading agent config from '{config_path}'").format(config_path=config_path))
+    # 使用UTF-8编码读取配置文件，支持中文
+    config = yaml.safe_load(config_path.read_text(encoding='utf-8'))
 
     if not task:
-        console.print("[bold yellow]What do you want to do?")
+        console.print("[bold yellow]"+_("What do you want to do?"))
         task = prompt_session.prompt(
             "",
             multiline=True,
             bottom_toolbar=HTML(
-                "Submit task: <b fg='yellow' bg='black'>Esc+Enter</b> | "
+                _("Submit task: <b fg='yellow' bg='black'>Esc+Enter</b> | "
                 "Navigate history: <b fg='yellow' bg='black'>Arrow Up/Down</b> | "
-                "Search history: <b fg='yellow' bg='black'>Ctrl+R</b>"
+                "Search history: <b fg='yellow' bg='black'>Ctrl+R</b>")
             ),
         )
-        console.print("[bold green]Got that, thanks![/bold green]")
+        console.print("[bold green]"+_("Got that, thanks!")+"[/bold green]")
 
     if yolo:
         config.setdefault("agent", {})["mode"] = "yolo"
@@ -96,7 +98,7 @@ def main(
     try:
         exit_status, result = agent.run(task)  # type: ignore[arg-type]
     except Exception as e:
-        logger.error(f"Error running agent: {e}", exc_info=True)
+        logger.error(_("Error running agent: {error}").format(error=e), exc_info=True)
         exit_status, result = type(e).__name__, str(e)
         extra_info = {"traceback": traceback.format_exc()}
     finally:
